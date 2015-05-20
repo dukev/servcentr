@@ -19,6 +19,8 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+		<link rel="shortcut icon" href="/servcentr/views/images/hammer_screwdriver.png" type="image/png">
+
 </head>
 <body>
 
@@ -26,18 +28,17 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Company',
+                'brandLabel' => 'Сервисный центр',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
+                    'class' => 'navbar-inverse navbar-fixed-top',],
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
+                    ['label' => 'Главная', 'url' => ['/site/index']],
+                    ['label' => 'О проекте', 'url' => ['/site/about']],
+                    ['label' => 'Контакты', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
@@ -50,9 +51,15 @@ AppAsset::register($this);
 
         <div class="container">
             <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                'links' => isset($this->params['breadcrumbs']) ? 
+                $this->params['breadcrumbs'] : [],
+                'homeLink' => ['label' => 'Главная']
             ]) ?>
+
+
             <?= $content ?>
+
+
         </div>
     </div>
 
