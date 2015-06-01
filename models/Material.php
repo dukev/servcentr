@@ -50,13 +50,13 @@ class Material extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'articul' => 'Articul',
-            'name' => 'Name',
-            'unit' => 'Unit',
+            'articul' => 'Артикул',
+            'name' => 'Наименование',
+            'unit' => 'Еденица измерения',
             'desc' => 'Desc',
             'create_at' => 'Create At',
             'edit_at' => 'Edit At',
-            'type_material_id' => 'Type Material ID',
+            'type_material_id' => 'Вид материала',
         ];
     }
 

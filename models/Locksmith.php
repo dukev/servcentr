@@ -44,10 +44,10 @@ class Locksmith extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'family' => 'Family',
-            'name' => 'Name',
-            'patronymic' => 'Patronymic',
-            'information' => 'Information',
+            'family' => 'Фамилия',
+            'name' => 'Имя',
+            'patronymic' => 'Отчество',
+            'information' => 'Информация',
         ];
     }
 

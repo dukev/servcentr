@@ -50,10 +50,10 @@ class Talon extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'date' => 'Date',
-            'type_repair_id' => 'Type Repair ID',
-            'locksmith_id' => 'Locksmith ID',
-            'material_id' => 'Material ID',
+            'date' => 'Дата',
+            'type_repair_id' => 'Вид ремонта',
+            'locksmith_id' => 'Слесарь',
+            'material_id' => 'Материалы',
             'desc' => 'Desc',
             'create_at' => 'Create At',
             'edit_at' => 'Edit At',
