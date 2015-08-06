@@ -2,120 +2,68 @@
 
 namespace app\controllers;
 
-use Yii;
-use app\models\Material;
-use yii\data\ActiveDataProvider;
+use yii;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use app\models\MaterialActual;
+use app\models\Material;
+use app\models\MaterialSearch;
 
-/**
- * MaterialController implements the CRUD actions for Material model.
- */
 class MaterialController extends Controller
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
+	public function actionIndex()
+	{
+		//$aDate = date('Y-m-d');
+		//$dataProvider = MaterialActual::getActualMaterials($aDate);
+		$search = [];
+		$params = Yii::$app->request->get();
+		if (isset($params['MaterialSearch'])) {
+			$search = $params['MaterialSearch'];
+		} 
+		if (isset($params['aDate'])) {
+			$aDate = $params['aDate'];
+		} else {
+			$aDate = date('Y-m-d');
+			$params['aDate'] = $aDate;
+		}
+    $searchModel = new MaterialSearch();
+		$dataProvider = $searchModel->search($params);
+		
+		return $this->render('index',['aDate' => $aDate, 
+			'dataProvider' => $dataProvider, 
+			'searchModel' => $searchModel ]);
+	}
 
-    /**
-     * Lists all Material models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Material::find(),
-        ]);
+	public function actionUpdate($id)
+	{
+		$model = MaterialActual::getMaterial($id);
+		//$model = Material::findOne($id);
+		return $this->render('update', ['model' => $model]);
+	}
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+	public function actionSave()
+	{
+		$material = Material::findOne($_POST['id']);
+    $material->articul = $_POST['articul'];
+    $material->name = $_POST['name'];
+    $material->unit = $_POST['unit'];
+    $material->desc = $_POST['desc'];
+    $material->vendor_articul = $_POST['vendor_articul'];
+    $material->save(false);
+    $aDate = date('Y-m-d');
+		$dataProvider = MaterialActual::getActualMaterials($aDate);
+    //return $this->render('index',['aDate' => $aDate, 
+			//'dataProvider' => $dataProvider]);
+		$this->runAction('index');
+	}
 
-    /**
-     * Displays a single Material model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+	public function actionFind()
+	{
+	  $params = Yii::$app->request->post();
+    $searchModel = new MaterialSearch();
+		$dataProvider = $searchModel->search($params);
 
-    /**
-     * Creates a new Material model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Material();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing Material model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Deletes an existing Material model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Material model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Material the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Material::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+		return $this->render('index', ['aDate' => $params['aDate'],
+		  'dataProvider' => $dataProvider,
+      'searchModel' => $searchModel, ]);
+	}
 }

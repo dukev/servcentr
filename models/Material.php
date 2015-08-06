@@ -12,13 +12,10 @@ use Yii;
  * @property string $name
  * @property string $unit
  * @property string $desc
- * @property string $create_at
- * @property string $edit_at
- * @property integer $type_material_id
+ * @property string $vendor_articul
  *
- * @property TypeMaterial $typeMaterial
  * @property Movement[] $movements
- * @property Talon[] $talons
+ * @property TalonMaterial[] $talonMaterials
  */
 class Material extends \yii\db\ActiveRecord
 {
@@ -36,10 +33,9 @@ class Material extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['articul', 'name', 'unit', 'create_at'], 'required'],
-            [['create_at', 'edit_at'], 'safe'],
-            [['type_material_id'], 'integer'],
-            [['articul', 'name', 'unit', 'desc'], 'string', 'max' => 255]
+            [['articul', 'name', 'unit'], 'required'],
+            [['articul', 'name', 'unit', 'desc'], 'string', 'max' => 255],
+            [['vendor_articul'], 'string', 'max' => 25]
         ];
     }
 
@@ -52,20 +48,10 @@ class Material extends \yii\db\ActiveRecord
             'id' => 'ID',
             'articul' => 'Артикул',
             'name' => 'Наименование',
-            'unit' => 'Еденица измерения',
-            'desc' => 'Desc',
-            'create_at' => 'Create At',
-            'edit_at' => 'Edit At',
-            'type_material_id' => 'Вид материала',
+            'unit' => 'Ед. изм.',
+            'desc' => 'Примечание',
+            'vendor_articul' => 'Заводской артикул',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTypeMaterial()
-    {
-        return $this->hasOne(TypeMaterial::className(), ['id' => 'type_material_id']);
     }
 
     /**
@@ -73,14 +59,14 @@ class Material extends \yii\db\ActiveRecord
      */
     public function getMovements()
     {
-        return $this->hasMany(Movement::className(), ['material_id' => 'id']);
+        return $this->hasMany(Movement::className(), ['id_material' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTalons()
+    public function getTalonMaterials()
     {
-        return $this->hasMany(Talon::className(), ['material_id' => 'id']);
+        return $this->hasMany(TalonMaterial::className(), ['id_material' => 'id']);
     }
 }

@@ -12,8 +12,6 @@ use Yii;
  * @property string $name
  * @property string $patronymic
  * @property string $information
- *
- * @property Talon[] $talons
  */
 class Locksmith extends \yii\db\ActiveRecord
 {
@@ -49,13 +47,5 @@ class Locksmith extends \yii\db\ActiveRecord
             'patronymic' => 'Отчество',
             'information' => 'Информация',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTalons()
-    {
-        return $this->hasMany(Talon::className(), ['locksmith_id' => 'id']);
     }
 }

@@ -9,16 +9,10 @@ use Yii;
  *
  * @property integer $id
  * @property string $date
- * @property integer $type_repair_id
- * @property integer $locksmith_id
- * @property integer $material_id
- * @property string $desc
- * @property string $create_at
- * @property string $edit_at
+ * @property integer $id_type_repair
+ * @property integer $id_locksmith
  *
- * @property TypeRepair $typeRepair
- * @property Locksmith $locksmith
- * @property Material $material
+ * @property TalonJob[] $talonJobs
  */
 class Talon extends \yii\db\ActiveRecord
 {
@@ -36,10 +30,9 @@ class Talon extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'locksmith_id', 'material_id', 'create_at'], 'required'],
-            [['date', 'create_at', 'edit_at'], 'safe'],
-            [['type_repair_id', 'locksmith_id', 'material_id'], 'integer'],
-            [['desc'], 'string', 'max' => 255]
+            [['date', 'id_type_repair', 'id_locksmith'], 'required'],
+            [['date'], 'safe'],
+            [['id_type_repair', 'id_locksmith'], 'integer']
         ];
     }
 
@@ -51,36 +44,16 @@ class Talon extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'Дата',
-            'type_repair_id' => 'Вид ремонта',
-            'locksmith_id' => 'Слесарь',
-            'material_id' => 'Материалы',
-            'desc' => 'Desc',
-            'create_at' => 'Create At',
-            'edit_at' => 'Edit At',
+            'id_type_repair' => 'Id Type Repair',
+            'id_locksmith' => 'Id Locksmith',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTypeRepair()
+    public function getTalonJobs()
     {
-        return $this->hasOne(TypeRepair::className(), ['id' => 'type_repair_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLocksmith()
-    {
-        return $this->hasOne(Locksmith::className(), ['id' => 'locksmith_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMaterial()
-    {
-        return $this->hasOne(Material::className(), ['id' => 'material_id']);
+        return $this->hasMany(TalonJob::className(), ['id_talon' => 'id']);
     }
 }

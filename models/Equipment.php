@@ -5,19 +5,21 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "type_repair".
+ * This is the model class for table "equipment".
  *
  * @property integer $id
  * @property string $name
+ *
+ * @property TalonJob[] $talonJobs
  */
-class TypeRepair extends \yii\db\ActiveRecord
+class Equipment extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'type_repair';
+        return 'equipment';
     }
 
     /**
@@ -27,7 +29,7 @@ class TypeRepair extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 50]
+            [['name'], 'string', 'max' => 25]
         ];
     }
 
@@ -38,7 +40,15 @@ class TypeRepair extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Наименование',
+            'name' => 'Оборудование',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTalonJobs()
+    {
+        return $this->hasMany(TalonJob::className(), ['id_equipment' => 'id']);
     }
 }

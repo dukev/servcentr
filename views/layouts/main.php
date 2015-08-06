@@ -17,7 +17,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode(Yii::$app->name) ?></title>
     <?php $this->head() ?>
 		<link rel="shortcut icon" href="/servcentr/views/images/hammer_screwdriver.png" type="image/png">
 
@@ -56,9 +56,9 @@ AppAsset::register($this);
                 'homeLink' => ['label' => 'Главная']
             ]) ?>
 
-
+            <main>
             <?= $content ?>
-
+            </main>
 
         </div>
     </div>

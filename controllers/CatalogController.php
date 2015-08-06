@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
-class CatalogController extends \yii\web\Controller
-{
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
+use yii\web\Controller;
 
+class CatalogController extends Controller
+{
+	public function actionIndex()
+	{
+		return $this->render('index');
+	}
 }

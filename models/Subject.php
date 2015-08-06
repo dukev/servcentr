@@ -5,19 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "type_repair".
+ * This is the model class for table "subject".
  *
  * @property integer $id
  * @property string $name
  */
-class TypeRepair extends \yii\db\ActiveRecord
+class Subject extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'type_repair';
+        return 'subject';
     }
 
     /**
@@ -27,7 +27,7 @@ class TypeRepair extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 50]
+            [['name'], 'string', 'max' => 255]
         ];
     }
 
@@ -38,7 +38,7 @@ class TypeRepair extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Наименование',
+            'name' => 'Имя',
         ];
     }
 }
