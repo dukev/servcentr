@@ -1,21 +1,18 @@
 <?php
-
 namespace app\models;
-
 use Yii;
 use yii\base\Model;
-
 /**
  * ContactForm is the model behind the contact form.
  */
 class ContactForm extends Model
 {
     public $name;
+    public $number_phone;
     public $email;
     public $subject;
     public $body;
     public $verifyCode;
-
     /**
      * @return array the validation rules.
      */
@@ -23,28 +20,27 @@ class ContactForm extends Model
     {
         return [
             // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
+            [['name', 'number_phone', 'email', 'subject', 'body'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
     }
-
     /**
      * @return array customized attribute labels
      */
     public function attributeLabels()
     {
         return [
-            'name' => 'Ваше имя',
-            'email' => 'Ваш e-mail',
+            'name' => 'ФИО',
+            'number_phone' => 'Телефон',
+            'email' => 'Email',
             'subject' => 'Тема',
             'body' => 'Сообщение',
             'verifyCode' => 'Код подтверждения',
         ];
     }
-
     /**
      * Sends an email to the specified email address using the information collected by this model.
      * @param  string  $email the target email address
@@ -59,7 +55,6 @@ class ContactForm extends Model
                 ->setSubject($this->subject)
                 ->setTextBody($this->body)
                 ->send();
-
             return true;
         } else {
             return false;

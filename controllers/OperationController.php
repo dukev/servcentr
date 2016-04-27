@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
-class OperationController extends \yii\web\Controller
-{
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
+use yii\web\Controller;
 
+class OperationController extends Controller
+{
+	public function actionIndex()
+	{
+		return $this->render('index');
+	}
 }

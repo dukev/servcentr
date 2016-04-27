@@ -45,7 +45,7 @@ class Remains extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_material' => 'Id Material',
+            'id_material' => 'Id material',
             'date' => 'Дата',
             'amount' => 'Количество',
             'price' => 'Цена',

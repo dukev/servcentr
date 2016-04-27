@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\;
+namespace app\controllers;
 
 use Yii;
 use app\models\Locksmith;
@@ -110,7 +110,7 @@ class LocksmithController extends Controller
      * @return Locksmith the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+        protected function findModel($id)
     {
         if (($model = Locksmith::findOne($id)) !== null) {
             return $model;

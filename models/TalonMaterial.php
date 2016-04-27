@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "talon_material".
  *
  * @property integer $id
+ * @property integer $id_talon
  * @property integer $id_material
  * @property double $price
  * @property double $amount
@@ -30,7 +31,7 @@ class TalonMaterial extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_material', 'price', 'amount'], 'required'],
+            [['id_talon', 'id_material', 'price', 'amount'], 'required'],
             [['id_material'], 'integer'],
             [['price', 'amount'], 'number']
         ];
@@ -43,11 +44,22 @@ class TalonMaterial extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+             'id_talon' => 'Id Talon',
             'id_material' => 'Id Material',
             'price' => 'Цена',
             'amount' => 'Количество',
         ];
     }
+
+
+/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdTalon()
+    {
+        return $this->hasOne(Talon::className(), ['id' => 'id_talon']);
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery

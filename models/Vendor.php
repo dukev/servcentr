@@ -10,9 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $name
  *
- * @property VendorModel[] $vendorModels
- * @property VendorModel[] $vendorModels0
- */
+ * @property VendorModel[] $vendorModels */
 class Vendor extends \yii\db\ActiveRecord
 {
     /**
@@ -49,14 +47,6 @@ class Vendor extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getVendorModels()
-    {
-        return $this->hasMany(VendorModel::className(), ['id_vendor' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVendorModels0()
     {
         return $this->hasMany(VendorModel::className(), ['id_vendor' => 'id']);
     }

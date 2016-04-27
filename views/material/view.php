@@ -1,22 +1,26 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Material */
 
+
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Materials', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Справочники', 'url' => ['catalog/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Материалы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="material-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,15 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'articul',
             'name',
+            'articul',
             'unit',
-            'desc',
-            'create_at',
-            'edit_at',
-            'type_material_id',
+            'desc'
         ],
     ]) ?>
-
+    
+    <?= Html::a('Перейти к списку материалов', 
+            Url::to(['material/index']), 
+                ['class' => 'btn btn-success']) ?> 
 </div>

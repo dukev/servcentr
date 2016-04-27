@@ -1,31 +1,20 @@
 <?php
 
 use yii\helpers\Html;
-
+use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\models\Material */
-$request = Yii::$app->getRequest();
+
+$this->title = 'Материалы:' . ' ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Справочники', 'url' => ['catalog/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Материалы', 'url' => ['index']];
+$this->params['breadcrumbs'][] =['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
-<div>
-	<H2>Материалы: редактирование</H2>
-	<form method="post" action="index.php?r=material/save">
-		<input type="hidden" name="id" value="<?= $model['id'] ?>">
-		<input type="hidden" name="<?= $request->csrfParam; ?>"
-		  value="<?= $request->getCsrfToken(); ?>">
-		<label for="name">наименование</label>
-		<input type="text" name="name" value="<?= $model['name'] ?>">
-		<label for="unit">ед. измерения</label>
-		<input type="text" name="unit" value="<?= $model['unit'] ?>">
-		<label for="articul">артикул</label>
-    <input type="text" name="articul" value="<?= $model['articul'] ?>">
-    <label for="vendor_articul">заводской артикул</label>
-    <input type="text" name="vendor_articul" value="<?= $model['vendor_articul'] ?>">
-		<label for="desc">примечание</label>
-    <input type="text" name="desc" value="<?= $model['desc'] ?>">
-    <input type="submit" value="изменить">
-    <?= Html::a('отменить','index.php?r=material'); ?>
-    <!--<input type="button" value="отменить" formaction="index.php?r=material" 
-    		formmethod="get">-->
-	</form>
-	   
+
+<div class="material-update">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+	<?= $this->render('_form', ['model' => $model]) ?>	   
 </div>

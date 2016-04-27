@@ -1,12 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Locksmith */
 
-$this->title = 'Сервисный центр';
+$this->params['breadcrumbs'][] = ['label' => 'Справочники', 'url' => ['catalog/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Слесаря', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title = $model->family;;
 ?>
@@ -15,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title = $model->family;;
     <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
-        <?= Html::a('обновить', ['update', 'id' => $model->id],
+        <?= Html::a('редактировать', ['update', 'id' => $model->id],
             ['class' => 'btn btn-primary']) ?>
         <?= Html::a('удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -29,12 +30,15 @@ $this->params['breadcrumbs'][] = $this->title = $model->family;;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'family',
             'name',
             'patronymic',
             'information',
         ],
     ]) ?>
+
+    <?= Html::a('Перейти к списку слесарей', 
+            Url::to(['locksmith/index']), 
+                ['class' => 'btn btn-success']) ?> 
 
 </div>

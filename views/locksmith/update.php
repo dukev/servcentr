@@ -1,14 +1,16 @@
 <?php
 
-use yii\helpers\Html;
+use yii\helpers\Html;	
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Locksmith */
 
-$this->title = 'Update Locksmith: ' . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Locksmiths', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Слесарь:' . ' ' . $model->family;
+
+$this->params['breadcrumbs'][] = ['label' => 'Справочники', 'url' => ['catalog/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Слесаря', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->family, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="locksmith-update">
 

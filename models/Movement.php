@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "movement".
@@ -72,4 +73,39 @@ class Movement extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TypeMove::className(), ['id' => 'id_type_move']);
     }
+    
+
+    public function search($params)
+    { 
+      $provider = new ActiveDataProvider([
+        'query' => Movement::getMovement(),
+        'pagination' => [
+        'pageSize' => 50
+        ],
+        'sort' => [
+          'attributes' => [
+            '',
+            'date',
+            'amount',
+            'price'
+          ]
+        ]
+      ]);
+
+      if(!($this->load($params) && $this->validate())) {
+        return $provider;
+      }
+
+      $provider->query->andFilterWhere(['like', 'name', $this->name])
+                      ->andFilterWhere(['like', 'articul', $this->articul])
+                      ->andFilterWhere(['like', 'vendor_articul', $this->vendor_articul]);
+
+      return $provider;
+    }
+
+    public static function getMovement()
+    {
+        return self::find();
+    }
+    
 }

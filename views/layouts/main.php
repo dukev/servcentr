@@ -36,13 +36,13 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Главная', 'url' => ['/site/index']],
+                    ['label' => 'Главная', 'url' => ['index']],
                     ['label' => 'О проекте', 'url' => ['/site/about']],
                     ['label' => 'Контакты', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
+                            'url' => ['logout'],
                             'linkOptions' => ['data-method' => 'post']],
                 ],
             ]);
@@ -53,7 +53,7 @@ AppAsset::register($this);
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? 
                 $this->params['breadcrumbs'] : [],
-                'homeLink' => ['label' => 'Главная']
+                'homeLink' => ['label' => 'Главная', 'url' => ['/']]
             ]) ?>
 
             <main>
@@ -65,8 +65,11 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+         <!--<p class="pull-center">Все права на материалы, размещенные на сайте, охраняются в соответствии с законодательством Украины.</p> -->
+      <p class="pull-center">&copy; Бойко Виталий. Все права защищены. 2016 &iquest;   E-mail: <a href="mailto:vitaliy.duke@gmail.com">vitaliy.duke@gmail.com</a></p>
+    <!--<p class="pull-left">&copy; My Company <?= date('Y') ?></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
+        -->
         </div>
     </footer>
 

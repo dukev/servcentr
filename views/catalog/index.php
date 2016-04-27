@@ -1,13 +1,15 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Html;
-$this->title = 'Сервисный центр';
-?>
+
+$this->params['breadcrumbs'][] = ['label' => 'Справочники'] ?>
+
 <h2>Справочники</h2>
 <ul>
-	<li><?= Html::a('Материалы', 'index.php?r=material') ?></li>
-	<li><?= Html::a('Оборудование', 'index.php?r=equipment') ?></li>	
-	<li><?= Html::a('Работы', 'index.php?r=job') ?></li>
-	<li><?= Html::a('Слесаря', 'index.php?r=locksmith') ?></li>
-	<li><?= Html::a('Субъекты', 'index.php?r=subject') ?></li>	
+    <li><?= Html::a('Договора', ['/contract']) ?></li>
+	<li><?= Html::a('Материалы', ['/material']) ?></li>
+	<li><?= Html::a('Оборудование', ['/vendor-model']) ?></li>	
+	<li><?= Html::a('Работы (услуги)', ['/job']) ?></li>
+	<li><?= Html::a('Слесаря', ['/locksmith']) ?></li>
+	<li><?= Html::a('Субъекты', ['/subject']) ?></li>	
 </ul>

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Query;
 
 /**
  * This is the model class for table "vendor_model".
@@ -13,10 +14,11 @@ use Yii;
  *
  * @property TalonJob[] $talonJobs
  * @property Vendor $idVendor
- * @property Vendor $idVendor0
  */
+
 class VendorModel extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -25,15 +27,27 @@ class VendorModel extends \yii\db\ActiveRecord
         return 'vendor_model';
     }
 
+
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), [
+            'vendor',
+            'type',
+        ]);
+    }  
+
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['name', 'id_vendor'], 'required'],
+            [['name', 'id_vendor', 'id_equipment'], 'required'],
             [['id_vendor'], 'integer'],
-            [['name'], 'string', 'max' => 255]
+            [['id_equipment'], 'integer'],
+            [['name'], 'string', 'max' => 255],
+            [['desc'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,8 +58,12 @@ class VendorModel extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Модель/Тип',
-            'id_vendor' => 'Id Vendor',
+            'name' => 'Модель',
+            'id_vendor' => 'Производитель',
+            'id_equipment' => 'Тип оборудования',
+            'vendor' => 'Производитель',
+            'type' => 'Тип оборудования',
+            'desc' => 'Примечание'
         ];
     }
 
@@ -65,11 +83,31 @@ class VendorModel extends \yii\db\ActiveRecord
         return $this->hasOne(Vendor::className(), ['id' => 'id_vendor']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdVendor0()
+    public function getIdEquipment()
     {
-        return $this->hasOne(Vendor::className(), ['id' => 'id_vendor']);
+        return $this->hasOne(Equipment::className(), ['id' => 'id_equipment']);
+    }
+
+    public static function getAllModels()
+    {
+        return self::find()
+             ->select([
+                'id' => 'm.id',
+                'id_equipment' => 'm.id_equipment',
+                'id_vendor' => 'm.id_vendor',
+                'type' => 'e.name',
+                'vendor' => 'v.name',
+                'name' => 'm.name',
+                'desc' => 'm.desc'
+              ])
+            ->from(['m' => 'vendor_model'])
+            ->innerJoin(['e' => 'equipment'], 
+                '[[m.id_equipment]] = [[e.id]]')
+            ->innerJoin(['v' => 'vendor'], '[[m.id_vendor]] = [[v.id]]');       
+    }
+    public static function findIdModel($id)
+    {
+         return self::getAllModels()
+                ->where('[[m.id]] = :id', [':id' => $id]);
     }
 }

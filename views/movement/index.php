@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Movements';
+$this->title = 'Получение материалов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="movement-index">
@@ -21,18 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'date',
-            'type_id',
             'amount',
             'price',
-            // 'desc',
-            // 'create_at',
-            // 'edit_at',
-            // 'material_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
+             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

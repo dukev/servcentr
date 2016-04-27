@@ -51,4 +51,9 @@ class Equipment extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TalonJob::className(), ['id_equipment' => 'id']);
     }
+
+    public function getVendorModels()
+    {
+        return $this->hasMany(VendorModel::className(), ['id_equipment' => 'id']);
+    }
 }

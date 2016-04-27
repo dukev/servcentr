@@ -8,13 +8,14 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\modules\users\models\user;
 
 class SiteController extends Controller
 {
     public function behaviors()
     {
         return [
-            'access' => [
+            /*/'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['logout'],
                 'rules' => [
@@ -24,7 +25,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                 ],
-            ],
+            ],*/
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -49,7 +50,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('\index');
     }
 
     public function actionReferences()
@@ -63,6 +64,27 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+    public function actionLogin()
+    {
+        $user = new User();
+
+        if ($user->load(Yii::$app->request->post()))
+        {
+            $identity = User::findOne(['login' => $user->login]);
+            Yii::$app->user->on(yii\web\User::EVENT_BEFORE_LOGIN, [
+                $this, 'checkPwd']);
+            if(!Yii::$app->user->login($identity))
+                $this->render('error');
+            
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('login',[
+            'model' => $user,
+            ]);
+          }
+    }
+
 
     public function actionContact()
     {
@@ -81,5 +103,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function checkPwd($event)
+    {
+        $pwd = $event->identity->password;
+
+        $event->isValid = false;
     }
 }
